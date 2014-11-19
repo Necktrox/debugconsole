@@ -7,34 +7,9 @@ This resource will make code debugging much easier, because you can
 route your debug message to a personal tab and it won't be mixed together
 with all the other debug messages.
 
-Development
+Information
 ============
 
-The resource is right now under huge refactoring to improve the readability
-and to structure the code into multiple files. Code duplicates will be
-removed where it's possible.
-
-How to use
-============
-
-...
-
-Installation
-============
-
-...
-
-Documentation
-============
-
-...
-
-Example
-============
-
-...
-
-License
-============
-
-The license is in the LICENSE file in the repository root folder.
+This is the development branch. This means you probably won't be able to run this code
+properly or it may change dramatically in structure. It's not meant to be used on a
+public server.

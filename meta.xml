@@ -1,12 +1,24 @@
+<!--*
+    *   Project:        Debug Console
+    *   Developers:     Necktrox
+!--->
 <meta>
-	<oop>false</oop>
-	<min_mta_version client="1.4.0" server="1.4.0"/>
-	<info name="Debug Console" author="Necktrox" version="1.0.0" type="script" description=""/>
+    <!-- Object Orientied Programming (since MTA 1.4) -->
+    <oop>false</oop>
+    
+    <!-- Metadata -->
+    <info name="Debug Console" version="dev-1.1.0" author="Necktrox" type="script" description="An advanced directx debugging solution as replacement for debugscript"/>
 
-	<file src="images/move_icon.png"/>
-	<file src="images/continue_icon.png"/>
-	<file src="images/pause_icon.png"/>
+    <!-- Client files -->
 
-	<script type="client" src="client.lua" cache="false"/>
-	<script type="server" src="server.lua"/>
+    <!-- Client scripts -->
+    <script type="client" src="client/main.lua"/>
+    <script type="client" src="client/util.lua"/>
+    <script type="client" src="client/library/Tab.lua"/>
+    <script type="client" src="client/library/TabWindow.lua"/>
+    <script type="client" src="client/library/OptionWindow.lua"/>
+    <script type="client" src="client/library/DebugConsole.lua"/>
+
+    <!-- Server scripts -->
+
 </meta>
