@@ -9,16 +9,23 @@
     <!-- Metadata -->
     <info name="Debug Console" version="dev-1.1.0" author="Necktrox" type="script" description="An advanced directx debugging solution as replacement for debugscript"/>
 
-    <!-- Client files -->
+    <!-- Shared -->
+    <script type="shared" src="shared/util.lua"/>
 
-    <!-- Client scripts -->
+    <!-- Client -->
     <script type="client" src="client/main.lua"/>
-    <script type="client" src="client/util.lua"/>
     <script type="client" src="client/library/Tab.lua"/>
     <script type="client" src="client/library/TabWindow.lua"/>
     <script type="client" src="client/library/OptionWindow.lua"/>
+    <script type="client" src="client/library/Settings.lua"/>
+    <script type="client" src="client/library/Renderer.lua"/>
+    <script type="client" src="client/library/Language.lua"/>
+    <script type="client" src="client/library/Syncronization.lua"/>
     <script type="client" src="client/library/DebugConsole.lua"/>
 
-    <!-- Server scripts -->
-
+    <!-- Server -->
+    <script type="server" src="server/main.lua"/>
+    <script type="server" src="server/library/Language.lua"/>
+    <script type="server" src="server/library/Syncronization.lua"/>
+    <script type="server" src="server/library/DebugConsole.lua"/>
 </meta>
