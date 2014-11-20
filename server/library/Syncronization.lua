@@ -7,10 +7,10 @@ static "Syncronization"
 
 function Syncronization:prepare()
     -- Name of the resource
-    self.resourceName = DebugConsole.resourceName or "debugconsole"
+    local resourceName = DebugConsole.resourceName or "debugconsole"
 
     -- Use the md5-hash for the event name
-    self.eventName = md5(self.resourceName)
+    self.eventName = md5(resourceName)
 
     -- Category bindings
     self.binds = {}
@@ -20,7 +20,7 @@ function Syncronization:prepare()
 end
 
 function Syncronization:createClientInterface()
-    -- Add the interface for the client event
+    -- Add the client event
     addEvent(self.eventName, true)
 
     -- Bind the handler for the client event

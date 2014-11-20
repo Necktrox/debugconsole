@@ -13,6 +13,6 @@ function handleResourceStop()
     DebugConsole:stop()
 end
 
--- Add a resource start and stop handler
+-- Add a resource start and a stop handler
 addEventHandler("onClientResourceStart", resourceRoot, handleResourceStart)
 addEventHandler("onClientResourceStop", resourceRoot, handleResourceStop)
