@@ -5,7 +5,9 @@
 
 function class(name)
     -- Verify the name
-    assert(type(name) == "string" and #name > 0, "invalid name for a class")
+    if (type(name) ~= "string" or #name == 0) then
+        error("invalid name for a class", 2)
+    end
 
     -- Create the class table
     local new = {}
@@ -30,6 +32,19 @@ function class(name)
                 function (self, ...)
                     -- Create an instance
                     local instance = v(self, ...)
+
+                    -- Check the instance type
+                    if (type(instance) ~= "table") then
+                        local text = "failed to create an instance for ".. name ..": "
+
+                        if (type(instance) == "string") then
+                            text = text .. instance
+                        else
+                            text = text .. "unknown error"
+                        end
+                        
+                        error(text)
+                    end
 
                     -- Bind the instance to the class
                     setmetatable(instance, {__index = self})
@@ -58,7 +73,9 @@ end
 
 function static(name)
     -- Verify the name
-    assert(type(name) == "string" and #name > 0, "invalid name for a class")
+    if (type(name) ~= "string" or #name == 0) then
+        error("invalid name for a static", 2)
+    end
 
     -- Create the static table
     local new = {}
@@ -69,10 +86,14 @@ end
 
 function bind(method, object)
     -- Verify the method parameter
-    assert(type(method) == "function", "cannot bind an invalid method to an object")
+    if (type(method) ~= "function") then
+        error("cannot bind an invalid method to an object", 2)
+    end
 
     -- Verify the object parameter
-    assert(type(object) == "table", "cannot bind an invalid object")
+    if (type(object) ~= "table") then
+        error("cannot bind an invalid object", 2)
+    end
 
     -- Create a closure to call the function
     return function (...)

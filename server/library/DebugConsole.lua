@@ -14,7 +14,6 @@ function DebugConsole:start()
 
     -- Bind handlers for packages
     Syncronization:add("permission", bind(self.handlePermissionRequest, self))
-    Syncronization:add("language", bind(self.handleLanguageRequest, self))
 end
 
 function DebugConsole:stop()
@@ -26,6 +25,16 @@ function DebugConsole:prepare()
     self.resourceName = getResourceName(resource) or "debugconsole"
 end
 
+function DebugConsole:hasPlayerPermission(player)
+    -- Validate the player
+    if (not isElement(player) or getElementType(player) ~= "player") then
+        return false
+    end
+
+    -- Return the permission boolean
+    return hasObjectPermissionTo(player, "command.debugscript", false)
+end
+
 function DebugConsole:handlePermissionRequest(player)
     -- Validate the player
     if (not isElement(player) or getElementType(player) ~= "player") then
@@ -33,23 +42,10 @@ function DebugConsole:handlePermissionRequest(player)
     end
 
     -- Check if the player has permission for the debugconsole
-    local access = hasObjectPermissionTo(player, "command.debugscript", false)
+    local access = self:hasPlayerPermission(player)
 
     -- Send the permission data to the player
-    Syncronization:push(player, "permission", access)
-end
-
-function DebugConsole:handleLanguageRequest(player, language)
-    -- Validate the player
-    if (not isElement(player) or getElementType(player) ~= "player") then
-        return
-    end
-
-    -- Get the language package
-    local package = Language:getPackage(language)
-
-    -- Send the language package to the player
-    Syncronization:push(player, "language", package)
+    Syncronization:push("permission", player, access)
 end
 
 function DebugConsole:output(formatstring, ...)

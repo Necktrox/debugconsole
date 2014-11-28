@@ -9,12 +9,17 @@ function DebugConsole:start()
     -- Prepare the class before usage
     self:prepare()
 
+    -- Prepare the settings class
+    Settings:prepare()
+
     -- Prepare the syncronization class
     Syncronization:prepare()
 
+    -- Prepare the rendering class
+    Renderer:prepare()
+
     -- Bind handlers for packages
     Syncronization:add("permission", bind(self.handlePermissionResponse, self))
-    Syncronization:add("language", bind(self.handleLanguageResponse, self))
 
     -- Require the permission package
     Syncronization:push("permission")
@@ -31,48 +36,46 @@ function DebugConsole:prepare()
     -- Permission to use the debug console
     self.access = false
 
-    -- Setting if we syncronized once
-    self.firstrun = true
+    -- Table with every tab
+    self.tabs = { }
+
+    -- TODO
+    self.activetab = false
+end
+
+function DebugConsole:getVisibleTabs()
+    local visible = { }
+
+    for index, tab in pairs(self.tabs) do
+        if (tab:visible()) then
+            visible[#visible + 1] = tab
+        end
+    end
+
+    return visible
+end
+
+function DebugConsole:getActiveTab()
+    if (self.activetab) then
+        return self.tabs[self.activetab]
+    else
+        return false
+    end
 end
 
 function DebugConsole:handlePermissionResponse(access)
     -- DEBUG: permission info
     self:output("Permission granted: %s", (access and "yes" or "no"))
 
+    -- Start/Stop rendering process
+    if (not self.access and access) then
+        Renderer:start()
+    elseif (self.access and not access) then
+        Renderer:stop()
+    end
+
     -- Apply the value
     self.access = access
-
-    if (self.firstrun) then
-        -- Require the language package when we have access
-        if (access) then
-            -- Get the player's UI language
-            local language = Settings:getLanguage()
-
-            -- Require the language package
-            Syncronization:push("language", language)
-        end
-
-        -- First run is done
-        self.firstrun = false
-    else
-        -- Hide the debug console incase we don't have rights anymore
-        if (not access) then
-            -- TODO: add this functionality
-        end
-    end
-end
-
-function DebugConsole:handleLanguageResponse(package)
-    -- Pass the package to the Language class
-    Language:apply(package)
-
-    -- DEBUG: language info
-    self:output("Received language packet, test: newtab = %q", Language:get("newtab"))
-end
-
-function DebugConsole:createTabsFromSettings()
-    -- Get list with visible windows
-    local windows = Settings:getVisibleWindowCount()
 end
 
 function DebugConsole:output(formatstring, ...)
