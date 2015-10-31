@@ -4,7 +4,7 @@ screenWidth, screenHeight = guiGetScreenSize()
 
 -- [Settingsvariables]
 -- Colors
-bgcolor = tocolor(0, 0, 0, 200)			-- Debugchat background color
+bgcolor = tocolor(0, 0, 0, 200)		-- Debugchat background color
 bgcolor = tocolor(30, 30, 30, 200)		-- Debugchat background color
 title_color = tocolor(255, 255, 255)		-- Window title color
 title_bgcolor = tocolor(150, 150, 150, 200)	-- Window title background color
